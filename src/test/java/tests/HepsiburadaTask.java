@@ -5,7 +5,9 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.LoggedMainPage;
 import pages.LoginPage;
 import pages.MainPage;
@@ -33,6 +35,8 @@ public class HepsiburadaTask extends TestBaseReport {
         LoggedMainPage loggedMainPage=new LoggedMainPage();
         SearchedSamsungListPage searchedSamsungListPage=new SearchedSamsungListPage();
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
+        SoftAssert sf=new SoftAssert();
+        Actions actions=new Actions(Driver.getDriver());
 
         extentTest = extentReports.createTest("hepsiBurada", "Task");
 
@@ -65,15 +69,18 @@ public class HepsiburadaTask extends TestBaseReport {
 
         extentTest.info("Kullanici sol taraftaki menuden önce telefon sonra cep telefonu kategorilerini tiklar");
 
-         //Scroll ile ugrasmamak icin Javascriptexecuter kullandim.
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
 
-        jse.executeScript("arguments[0].scrollIntoView()", searchedSamsungListPage.telefonCategory);
+       searchedSamsungListPage.telefonCategory.click();
 
-        jse.executeScript("arguments[0].click();", searchedSamsungListPage.telefonCategory);
+        Thread.sleep(3000);
 
-        jse.executeScript("arguments[0].scrollIntoView()", searchedSamsungListPage.cepTelefonuCategory);
 
-        jse.executeScript("arguments[0].click();", searchedSamsungListPage.cepTelefonuCategory);
+
+
+
+
+
 
 
 

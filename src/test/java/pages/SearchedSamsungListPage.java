@@ -15,8 +15,7 @@ public class SearchedSamsungListPage {
     @FindBy(xpath = "(//div[@class='treeCategoryContent-treeTitleContainer'])[1]")
     public WebElement telefonCategory;
 
-    @FindBy(xpath = "//a[@href='https://www.hepsiburada.com/cep-telefonlari-c-371965']")
-    public WebElement cepTelefonuCategory;
+
 
 
 
