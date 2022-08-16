@@ -16,6 +16,10 @@ public class MyAccountPage {
     public WebElement myAccountOptions;
 
 
+    @FindBy(xpath = "//a[@title='Beğendiklerim']")
+    public WebElement favorites;
+
+
 
 
 }

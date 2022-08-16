@@ -35,10 +35,14 @@ public class HepsiburadaTask extends TestBaseReport {
         LoggedMainPage loggedMainPage=new LoggedMainPage();
         SearchedSamsungListPage searchedSamsungListPage=new SearchedSamsungListPage();
         ProductPage productPage=new ProductPage();
+        MyAccountPage myAccountPage=new MyAccountPage();
+
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();
         Actions actions=new Actions(Driver.getDriver());
         WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+
+
 
         extentTest = extentReports.createTest("hepsiBurada", "Task");
 
@@ -113,6 +117,8 @@ public class HepsiburadaTask extends TestBaseReport {
 
         String fifthProductText= searchedSamsungListPage.fifthProduct.getText();
 
+        // ileri stepteki dogrulama icin
+
 
         Set<String> windowsHandles=Driver.getDriver().getWindowHandles();
 
@@ -148,7 +154,24 @@ public class HepsiburadaTask extends TestBaseReport {
 
         extentTest.info("Kullanici hesabim sekmesinden begendiklerim linkine tiklar");
 
-        m
+        actions.sendKeys(Keys.PAGE_UP).perform();
+
+        Thread.sleep(2000);
+
+        actions.moveToElement( myAccountPage.myAccountOptions).perform();
+
+
+        Thread.sleep(1000);
+
+
+
+        myAccountPage.favorites.click();
+
+
+
+
+
+
 
 
 
