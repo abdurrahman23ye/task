@@ -2,22 +2,23 @@ package tests;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.Cookie;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.LoggedMainPage;
-import pages.LoginPage;
-import pages.MainPage;
-import pages.SearchedSamsungListPage;
+import pages.*;
 import utilities.CookieLogin;
 import utilities.Driver;
 import utilities.TestBaseReport;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
+import java.util.Set;
 
 public class HepsiburadaTask extends TestBaseReport {
 
@@ -30,13 +31,14 @@ public class HepsiburadaTask extends TestBaseReport {
     @Test
     public void hepsiBuradaTask() throws IOException, InterruptedException {
 
-        MainPage mainPage=new MainPage();
-        LoginPage loginPage=new LoginPage();
+
         LoggedMainPage loggedMainPage=new LoggedMainPage();
         SearchedSamsungListPage searchedSamsungListPage=new SearchedSamsungListPage();
+        ProductPage productPage=new ProductPage();
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();
         Actions actions=new Actions(Driver.getDriver());
+        WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
 
         extentTest = extentReports.createTest("hepsiBurada", "Task");
 
@@ -67,29 +69,86 @@ public class HepsiburadaTask extends TestBaseReport {
 
 
 
-        extentTest.info("Kullanici sol taraftaki menuden önce telefon sonra cep telefonu kategorilerini tiklar");
+        extentTest.info("Kullanici sol taraftaki menuden önce telefona tiklar");
 
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        /*
+        1. Bana verilen takste istenilen aslında
+        "Kullanici sol taraftaki menuden önce telefon sonra cep telefonu kategorilerini tiklar"
+        fakat  telefonu tıkladıktan sonra menüye cep telefonu opsiyonu gelmiyor. Sayfada cep telefonu
+        linki mevcut ama o mevcut aramanin sonuçlarini filtrelemeyip cep telefonu aramasi sayfasina gecis
+        sagliyor.
 
-       searchedSamsungListPage.telefonCategory.click();
+        2. Sayfada telefon kategorisi icin locater istikrarli calismadi o yüzden javasicript executer dan
+        yararlandim.
+         */
 
         Thread.sleep(3000);
 
 
 
+        jse.executeScript("arguments[0].scrollIntoView()", searchedSamsungListPage.telefonCategory);
+        jse.executeScript("arguments[0].click()", searchedSamsungListPage.telefonCategory);
+
+        Thread.sleep(3000);
+
+        extentTest.info("Sayfadaki sobuclarin samsung icerdigi dogrulanacak");
+
+        actions.sendKeys(Keys.PAGE_UP).perform();
+
+        sf.assertTrue(searchedSamsungListPage.searchResult.getText().startsWith("samsung"));
+
+
+
+        extentTest.info("Arama sonuçlarından 2. sayfaya tıklayacak ve açılan sayfada 2. sayfanın şu an gösterimde olduğunu onaylayacak");
+
+         //Calisma yaptigim web sayfasinda arama sonuclari sayfa olarak gösterilmemekte. Daha fazla urun goster
+
+        //butonu bulunmakta fakat bu buton sayfada herhangi bir degisiklige yol açmamakta.
+
+        extentTest.info("Kullanici ustten 5. urune tiklar");
+
+        String firstPageHandle=Driver.getDriver().getWindowHandle();
+
+        searchedSamsungListPage.fifthProduct.click();
+
+        String fifthProductText= searchedSamsungListPage.fifthProduct.getText();
+
+
+        Set<String> windowsHandles=Driver.getDriver().getWindowHandles();
+
+        String newPageHandle="";
+
+        for (String each: windowsHandles
+             ) {
+
+            if(!each.equals(firstPageHandle)){
+                newPageHandle=each;
+            }
+        }
+
+        Driver.getDriver().switchTo().window(newPageHandle);
 
 
 
 
+        extentTest.info("Kullanici urunu begen butonuna tiklar");
+
+        actions.sendKeys(Keys.PAGE_DOWN);
+
+        productPage.likeButton.click();
 
 
 
+        extentTest.info("Kullanici urunu begendikleri listesine ekledigini onaylar");
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='hb-toast-text']"))));
+        sf.assertTrue(productPage.productAddedToList.isDisplayed());
 
+        sf.assertAll();
 
+        extentTest.info("Kullanici hesabim sekmesinden begendiklerim linkine tiklar");
 
-
-
+        m
 
 
 

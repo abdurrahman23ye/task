@@ -16,6 +16,15 @@ public class SearchedSamsungListPage {
     public WebElement telefonCategory;
 
 
+    @FindBy(xpath = "//div[@class='searchResultSummaryBar-mainText']")
+    public WebElement searchResult;
+
+    @FindBy(xpath = "(//h3[@data-test-id='product-card-name'])[5]")
+    public WebElement fifthProduct;
+
+
+
+
 
 
 
