@@ -5,16 +5,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class LoggedMainPage {
+public class HepsiBuradaMainPage {
 
-    public LoggedMainPage(){
+    public HepsiBuradaMainPage(){
 
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//input[@type='text']")
-    public WebElement searchBox;
+    @FindBy(xpath = "//span[@title='Giriş Yap']")
+    public WebElement loginOptions;
 
+    @FindBy(xpath = "//a[@id='login']")
+    public WebElement loginButton;
 
 
 }

@@ -2,10 +2,9 @@ package tests;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.Cookie;
 import org.testng.annotations.Test;
-import pages.LoginPage;
-import pages.MainPage;
+import pages.HepsiBuradaLoginPage;
+import pages.HepsiBuradaMainPage;
 import utilities.Driver;
 import utilities.TestBaseReport;
 
@@ -33,8 +32,8 @@ public class FailedHepsiburadaTask extends TestBaseReport {
     @Test
     public void hepsiBuradaTask() throws IOException, InterruptedException {
 
-        MainPage mainPage=new MainPage();
-        LoginPage loginPage=new LoginPage();
+        HepsiBuradaMainPage hepsiBuradaMainPage =new HepsiBuradaMainPage();
+        HepsiBuradaLoginPage hepsiBuradaLoginPage =new HepsiBuradaLoginPage();
 
         extentTest = extentReports.createTest("hepsiBurada", "Task");
 
@@ -49,13 +48,13 @@ public class FailedHepsiburadaTask extends TestBaseReport {
 
         extentTest.info("Kullanici login secenekleri butonuna basar");
 
-        mainPage.loginOptions.click();
+        hepsiBuradaMainPage.loginOptions.click();
 
 
 
         extentTest.info("Kullanici acilan menuden login butonuna basar");
 
-        mainPage.loginButton.click();
+        hepsiBuradaMainPage.loginButton.click();
 
 
 
@@ -70,10 +69,10 @@ public class FailedHepsiburadaTask extends TestBaseReport {
 
         String userName= workbook.getSheet("Sayfa2").getRow(0).getCell(1).toString();
 
-        loginPage.userNameLabel.sendKeys(userName);
+        hepsiBuradaLoginPage.userNameLabel.sendKeys(userName);
 
 
-        loginPage.loginButton.click();
+        hepsiBuradaLoginPage.loginButton.click();
 
 
 

@@ -5,21 +5,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class MyAccountPage {
+public class HepsiBuradaLoginPage {
 
-    public MyAccountPage(){
+    public HepsiBuradaLoginPage(){
 
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//div[@id='myAccount']")
-    public WebElement myAccountOptions;
+    @FindBy(xpath = "//input[@type='text']")
+    public WebElement userNameLabel;
 
-
-    @FindBy(xpath = "//a[@title='Beğendiklerim']")
-    public WebElement favorites;
-
-
-
+    @FindBy(xpath = "//button[@id='btnLogin']")
+    public WebElement loginButton;
 
 }

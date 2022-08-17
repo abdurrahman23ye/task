@@ -32,10 +32,10 @@ public class HepsiburadaTask extends TestBaseReport {
     public void hepsiBuradaTask() throws IOException, InterruptedException {
 
 
-        LoggedMainPage loggedMainPage=new LoggedMainPage();
-        SearchedSamsungListPage searchedSamsungListPage=new SearchedSamsungListPage();
-        ProductPage productPage=new ProductPage();
-        MyAccountPage myAccountPage=new MyAccountPage();
+        HepsiBuradaLoggedMainPage hepsiBuradaLoggedMainPage =new HepsiBuradaLoggedMainPage();
+        HepsiBuradaSearchedSamsungListPage hepsiBuradaSearchedSamsungListPage =new HepsiBuradaSearchedSamsungListPage();
+        HepsiBuradaProductPage hepsiBuradaProductPage =new HepsiBuradaProductPage();
+        HepsiBuradaMyAccountPage hepsiBuradaMyAccountPage =new HepsiBuradaMyAccountPage();
 
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();
@@ -69,7 +69,7 @@ public class HepsiburadaTask extends TestBaseReport {
 
         String searchingWord= workbook.getSheet("Sayfa2").getRow(2).getCell(1).toString();
 
-        loggedMainPage.searchBox.sendKeys(searchingWord+ Keys.ENTER);
+        hepsiBuradaLoggedMainPage.searchBox.sendKeys(searchingWord+ Keys.ENTER);
 
 
 
@@ -90,8 +90,8 @@ public class HepsiburadaTask extends TestBaseReport {
 
 
 
-        jse.executeScript("arguments[0].scrollIntoView()", searchedSamsungListPage.telefonCategory);
-        jse.executeScript("arguments[0].click()", searchedSamsungListPage.telefonCategory);
+        jse.executeScript("arguments[0].scrollIntoView()", hepsiBuradaSearchedSamsungListPage.telefonCategory);
+        jse.executeScript("arguments[0].click()", hepsiBuradaSearchedSamsungListPage.telefonCategory);
 
         Thread.sleep(3000);
 
@@ -99,7 +99,7 @@ public class HepsiburadaTask extends TestBaseReport {
 
         actions.sendKeys(Keys.PAGE_UP).perform();
 
-        sf.assertTrue(searchedSamsungListPage.searchResult.getText().startsWith("samsung"));
+        sf.assertTrue(hepsiBuradaSearchedSamsungListPage.searchResult.getText().startsWith("samsung"));
 
 
 
@@ -113,9 +113,9 @@ public class HepsiburadaTask extends TestBaseReport {
 
         String firstPageHandle=Driver.getDriver().getWindowHandle();
 
-        searchedSamsungListPage.fifthProduct.click();
+        hepsiBuradaSearchedSamsungListPage.fifthProduct.click();
 
-        String fifthProductText= searchedSamsungListPage.fifthProduct.getText();
+        String fifthProductText= hepsiBuradaSearchedSamsungListPage.fifthProduct.getText();
 
         // ileri stepteki dogrulama icin
 
@@ -141,14 +141,14 @@ public class HepsiburadaTask extends TestBaseReport {
 
         actions.sendKeys(Keys.PAGE_DOWN);
 
-        productPage.likeButton.click();
+        hepsiBuradaProductPage.likeButton.click();
 
 
 
         extentTest.info("Kullanici urunu begendikleri listesine ekledigini onaylar");
 
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@class='hb-toast-text']"))));
-        sf.assertTrue(productPage.productAddedToList.isDisplayed());
+        sf.assertTrue(hepsiBuradaProductPage.productAddedToList.isDisplayed());
 
         sf.assertAll();
 
@@ -158,14 +158,14 @@ public class HepsiburadaTask extends TestBaseReport {
 
         Thread.sleep(2000);
 
-        actions.moveToElement( myAccountPage.myAccountOptions).perform();
+        actions.moveToElement( hepsiBuradaMyAccountPage.myAccountOptions).perform();
 
 
         Thread.sleep(1000);
 
 
 
-        myAccountPage.favorites.click();
+        hepsiBuradaMyAccountPage.favorites.click();
 
 
 

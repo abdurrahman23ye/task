@@ -23,7 +23,7 @@ public class AmazonTest extends TestBaseReport {
 
 
     @Test
-    public void AmazonTest() throws IOException {
+    public void AmazonTest() throws IOException, InterruptedException {
 
         AmazonMainPage amazonMainPage=new AmazonMainPage();
         AmazonSigninPage amazonSigninPage=new AmazonSigninPage();
@@ -31,6 +31,7 @@ public class AmazonTest extends TestBaseReport {
         AmazonSearchPage amazonSearchPage=new AmazonSearchPage();
         AmazonProductPage amazonProductPage=new AmazonProductPage();
         AmazonListPage amazonListPage=new AmazonListPage();
+        AmazonCartPage amazonCartPage=new AmazonCartPage();
 
 
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
@@ -160,7 +161,7 @@ public class AmazonTest extends TestBaseReport {
 
         sf.assertTrue(amazonListPage.addedToCartAlert.isDisplayed());
 
-        sf.assertAll();
+
 
 
 
@@ -169,33 +170,23 @@ public class AmazonTest extends TestBaseReport {
 
         Driver.getDriver().navigate().back();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='nav-cart-icon nav-sprite']")));
+        Thread.sleep(1000);
 
-
-        amazonMainPage.cartButton.click();
-
-
-        
+        jse.executeScript("arguments[0].scrollIntoView();", amazonMainPage.cartButton);
+        jse.executeScript("arguments[0].click();", amazonMainPage.cartButton);
 
 
 
+        extentTest.info("Kullanici ekledigi urunu sepetten kaldirir");
+
+        amazonCartPage.deleteProduct.click();
+
+        extentTest.pass("Kullanici ekledigi urunu sepetten kaldiririldigini dogrular");
+
+       sf.assertTrue( amazonCartPage.deletedAlert.isDisplayed());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        sf.assertAll();
 
     }
 }
