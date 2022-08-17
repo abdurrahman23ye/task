@@ -18,6 +18,11 @@ public class AmazonMainPage {
     @FindBy(xpath = "//span[@class='nav-action-inner']")
     public WebElement signin;
 
+    @FindBy(xpath = "//span[@class='nav-cart-icon nav-sprite']")
+    public WebElement cartButton;
+
+
+
 
 
 
