@@ -46,7 +46,7 @@ public class AmazonTest extends TestBaseReport {
         AmazonCartPage amazonCartPage=new AmazonCartPage();
 
 
-        ExcelReporter excelReporter = new ExcelReporter("target", "testresultstestng.xls");
+        ExcelReporter excelReporter = new ExcelReporter("test-output", "testresultstestng.xls");
         Log log=new Log();
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();

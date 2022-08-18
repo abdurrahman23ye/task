@@ -27,3 +27,17 @@
 2022-08-18 20:18:22,775 INFO  [Log] Kullanici sepete gider 
 2022-08-18 20:18:27,616 INFO  [Log] Kullanici ekledigi urunu sepetten kaldirir 
 2022-08-18 20:18:28,263 INFO  [Log] Kullanici ekledigi urunu sepetten kaldiririldigini dogrular 
+2022-08-18 20:38:10,594 INFO  [Log] Kullanici Amazon web sayfasina gider ve sayfanin acildigini onaylar 
+2022-08-18 20:38:16,556 INFO  [Log] Kullanici login sayfasini acip kayitli bir kullanici ile giris yapar 
+2022-08-18 20:38:23,415 INFO  [Log] Kullanici arama kutusuna Samsung yazip arama yapar 
+2022-08-18 20:38:30,792 INFO  [Log] Kullanici arama sonuclarini cep telefonlari ile filtreler. 
+2022-08-18 20:38:34,134 INFO  [Log] Kullanici arama sonuclarinin samsung icerdigini dogrular 
+2022-08-18 20:38:34,216 INFO  [Log] Kullanici sonuclardan ikinci sayfaya tiklar ve bunu dogrular 
+2022-08-18 20:38:37,624 INFO  [Log] Kullanici besinci siradaki urune tiklar 
+2022-08-18 20:38:43,361 INFO  [Log] Kullanici urunu listeye ekler 
+2022-08-18 20:38:43,773 INFO  [Log] Kullanici urunu listesine gider ve ekledigi urunun listede oldugunu dogrular 
+2022-08-18 20:38:47,097 INFO  [Log] Kullanici satin alma seceneklerini goruntuler ve urunu sepete ekler 
+2022-08-18 20:38:53,304 INFO  [Log] Kullanici urunun sepete eklendigini dogrular 
+2022-08-18 20:38:55,278 INFO  [Log] Kullanici sepete gider 
+2022-08-18 20:39:00,355 INFO  [Log] Kullanici ekledigi urunu sepetten kaldirir 
+2022-08-18 20:39:01,049 INFO  [Log] Kullanici ekledigi urunu sepetten kaldiririldigini dogrular 
