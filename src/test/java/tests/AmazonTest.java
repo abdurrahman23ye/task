@@ -12,18 +12,34 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 import utilities.Driver;
+import utilities.Log;
 import utilities.TestBaseReport;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+
+
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import utilities.TestResultLogger;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)//
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(TestResultLogger.class)
+
 
 public class AmazonTest extends TestBaseReport {
 
 
-    @Test
+
+
+    @Test()
+    @Order(1)
     public void AmazonTest() throws IOException, InterruptedException {
+
+
 
         AmazonMainPage amazonMainPage=new AmazonMainPage();
         AmazonSigninPage amazonSigninPage=new AmazonSigninPage();
@@ -34,6 +50,8 @@ public class AmazonTest extends TestBaseReport {
         AmazonCartPage amazonCartPage=new AmazonCartPage();
 
 
+
+        Log log=new Log();
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();
         Actions action=new Actions(Driver.getDriver());
@@ -43,7 +61,12 @@ public class AmazonTest extends TestBaseReport {
 
 
 
+
+
+
+
         extentTest.info("Kullanici Amazon web sayfasina gider ve sayfanin acildigini onaylar");
+        log.info("Kullanici Amazon web sayfasina gider ve sayfanin acildigini onaylar");
 
         Driver.getDriver().get("https://www.amazon.com/");
 
@@ -53,6 +76,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici login sayfasini acip kayitli bir kullanici ile giris yapar");
+        log.info("Kullanici login sayfasini acip kayitli bir kullanici ile giris yapar");
 
         action.moveToElement(amazonMainPage.signinOptions).perform();
 
@@ -188,5 +212,15 @@ public class AmazonTest extends TestBaseReport {
 
         sf.assertAll();
 
+
+
+        workbook.close();
+        fis.close();
+
+
     }
-}
+
+
+
+    }
+
