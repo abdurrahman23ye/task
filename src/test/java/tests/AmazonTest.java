@@ -11,9 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
-import utilities.Driver;
-import utilities.Log;
-import utilities.TestBaseReport;
+import utilities.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,8 +20,6 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import utilities.TestResultLogger;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)//
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -50,7 +46,7 @@ public class AmazonTest extends TestBaseReport {
         AmazonCartPage amazonCartPage=new AmazonCartPage();
 
 
-
+        ExcelReporter excelReporter = new ExcelReporter("target", "testresultstestng.xls");
         Log log=new Log();
         JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
         SoftAssert sf=new SoftAssert();
@@ -104,6 +100,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici arama kutusuna Samsung yazip arama yapar");
+        log.info("Kullanici arama kutusuna Samsung yazip arama yapar");
 
         String searchingWord= workbook.getSheet("Sayfa2").getRow(2).getCell(1).toString();
 
@@ -113,12 +110,14 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici arama sonuclarini cep telefonlari ile filtreler.");
+        log.info("Kullanici arama sonuclarini cep telefonlari ile filtreler.");
 
         amazonSearchPage.cellPhonesCategory.click();
 
 
 
         extentTest.info("Kullanici arama sonuclarinin samsung icerdigini dogrular");
+        log.info("Kullanici arama sonuclarinin samsung icerdigini dogrular");
 
         sf.assertTrue(amazonSearchPage.resultLabel.getText().contains(searchingWord));
 
@@ -128,6 +127,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici sonuclardan ikinci sayfaya tiklar ve bunu dogrular");
+        log.info("Kullanici sonuclardan ikinci sayfaya tiklar ve bunu dogrular");
 
 
         jse.executeScript("arguments[0].scrollIntoView()", amazonSearchPage.resultsSecondPage);
@@ -144,6 +144,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici besinci siradaki urune tiklar");
+        log.info("Kullanici besinci siradaki urune tiklar");
 
         amazonSearchPage.fifthProduct.click();
 
@@ -151,6 +152,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici urunu listeye ekler");
+        log.info("Kullanici urunu listeye ekler");
 
         //Hepsiburada'daki begene muadil Amazon'da listeye ekleme mevcut.
 
@@ -159,6 +161,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici urunu listesine gider ve ekledigi urunun listede oldugunu dogrular");
+        log.info("Kullanici urunu listesine gider ve ekledigi urunun listede oldugunu dogrular");
 
         amazonProductPage.viewYourListButton.click();
 
@@ -167,6 +170,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici satin alma seceneklerini goruntuler ve urunu sepete ekler");
+        log.info("Kullanici satin alma seceneklerini goruntuler ve urunu sepete ekler");
 
         amazonListPage.buyingOptions.click();
 
@@ -179,6 +183,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici urunun sepete eklendigini dogrular");
+        log.info("Kullanici urunun sepete eklendigini dogrular");
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='a-alert-content']")));
 
@@ -191,6 +196,7 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici sepete gider");
+        log.info("Kullanici sepete gider");
 
         Driver.getDriver().navigate().back();
 
@@ -202,18 +208,23 @@ public class AmazonTest extends TestBaseReport {
 
 
         extentTest.info("Kullanici ekledigi urunu sepetten kaldirir");
+        log.info("Kullanici ekledigi urunu sepetten kaldirir");
 
         amazonCartPage.deleteProduct.click();
 
         extentTest.pass("Kullanici ekledigi urunu sepetten kaldiririldigini dogrular");
+        log.info("Kullanici ekledigi urunu sepetten kaldiririldigini dogrular");
 
        sf.assertTrue( amazonCartPage.deletedAlert.isDisplayed());
 
 
         sf.assertAll();
 
+        excelReporter.addPassTest("Amazon sitesi testi", "Test Basarili bir sekilde tamamlanir","Test Basarili bir sekilde tamamlanir");
+        //Bu methodu istedigim her adima aksiyon, beklenen sonuc ve actuel sonuc ile ekleyebilirim.
+        //Siz sadece sonuc yazsin demistiniz diye kod kalabaligi olmamasi icin sadece sonuca yazdirdim.
 
-
+        excelReporter.saveResultsToFile();
         workbook.close();
         fis.close();
 
